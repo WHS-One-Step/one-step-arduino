@@ -51,3 +51,27 @@ int calculate_number_from_binary_bits(int* binary_bits) {
     return number;
 }
 ```
+
+## Perpetual Motion
+A huge problem encountered during the project was the motor continously moving in perpetual motion. To combat this, our **one-step-learner** detects whether a person is walking forwards or backwards, and updates a **STOP** pin, as well as clearing the other bits to zeroes.
+- Once a **STOP** bit has been activated, the Arduino circuit will prevent writing power to the motor until the **STOP** bit has been cleared.
+
+```c
+switch (digitalRead(stop_pin)) {
+    case LOW:
+        {
+            digitalWrite(motor_direction_one, HIGH);
+            analogWrite(motor_pin, PWM);
+
+            break;
+        }
+
+    case HIGH:
+        {
+            digitalWrite(motor_direction_one, LOW);
+            analogWrite(motor_pin, 0);
+
+            break;
+        }
+}
+```
