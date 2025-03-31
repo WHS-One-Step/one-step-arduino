@@ -5,7 +5,13 @@
 #include <stdlib.h>
 
 // Constants:
-const int input_pins[] = {1, 2, 3, 4, 5, 6, 7, 8};
+const int input_pins[] = {13, 12, 11, 10, 9, 8, 7, 6};
+const int motor_pin = 5;
+
+const int motor_direction_one = 40;
+const int motor_direction_two = 42;
+
+const int stop_pin = 4;
 
 // Prone:
 int input_representation[] = {LOW, LOW, LOW, LOW, LOW, LOW, LOW, LOW};
@@ -55,9 +61,16 @@ void setup() {
     // Initialization:
     Serial.begin(9600);
 
+    // GPIO:
     for (int iteration = 0; iteration < 8; iteration++) {
         pinMode(input_pins[iteration], INPUT);
     }
+
+    // Motor:
+    pinMode(motor_pin, OUTPUT);
+
+    // Stop:
+    pinMode(stop_pin, INPUT);
 }
 
 
@@ -80,6 +93,27 @@ void loop() {
 
     // PWM:
     int PWM = calculate_number_from_binary_bits(bits);
+
+    // Logic:
+    switch (digitalRead(stop_pin)) {
+        case LOW:
+            {
+                digitalWrite(motor_direction_one, HIGH);
+                analogWrite(motor_pin, PWM);
+
+                break;
+            }
+
+        case HIGH:
+            {
+              digitalWrite(motor_direction_one, LOW);
+              analogWrite(motor_pin, 0);
+
+              break;
+            }
+    }
+
+    digitalWrite(motor_direction_two, LOW);
 
     Serial.print(" -> Decimal: ");
     Serial.println(PWM);
