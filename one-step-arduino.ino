@@ -1,39 +1,6 @@
 // Written by: Christopher Gholmieh
 // Include:
 
-// Methods:
-/**
-  @param binary_bits An array of bits representing 8-bit binary.
-    @example: [0,   0,  0,  0,  0, 0, 0, 0]
-    @example  [128, 64, 32, 16, 8, 4, 2, 1]
-*/
-int calculate_number_from_binary_bits(int binary_bits[]) {
-  // Variables (Assignments):
-  // Representations:
-  const int representations[] = {128, 64, 32, 16, 8, 4, 2, 1};
-  
-  // Number:
-  int number = 0;
-
-  // Logic:
-  for (int iteration = 0; iteration <= 7; iteration++) {
-    if (binary_bits[iteration] == 1) {
-      number += representations[iteration];
-    }
-  }
-
-  return number;
-}
-
-int main(void) {
-  // JJ, ONCE U HAVE THE PIN SIGNALS, SIMPLY MAKE TGHE ARRAY AND THEN PASS ITR INTO THE CALCULATE_NUMBER_FROM_BINARY_BITS FUNCTION!!
-  return 0;
-}
-chronicles — 2:17 PM
-@Jj 
-// Written by: Christopher Gholmieh & Saahir Kadri
-// Include:
-
 // Library:
 #include <stdlib.h>
 
