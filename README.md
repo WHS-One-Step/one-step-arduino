@@ -1,6 +1,20 @@
 # One-Step-Arduino
 The official source code repository connecting binary signals from a raspberry pi to an arduino circuit.
 
+## Installation
+To install this project, simply create a arduino sketch and paste the one-step-arduino.ino code. Subsequently, press the upload button once your arduino unit is connected to your computer, and ensure that the pin mappings correspond to the constants in the code.
+**Change the constants if necessary to fit your specific needs.**
+```c
+// Constants:
+const int input_pins[] = {13, 12, 11, 10, 9, 8, 7, 6};
+const int motor_pin = 5;
+
+const int motor_direction_one = 40;
+const int motor_direction_two = 42;
+
+const int stop_pin = 4;
+```
+
 ## Bits
 Through the utilization of the Arduino input pins, LOW signals are converted to zeroes while HIGH signals are converted to ones.
 - Notice that the **static** keyword was used to prevent memory leaks as overwriting memory was more efficient than constantly creating memory for non-dynamic arrays.
@@ -57,21 +71,14 @@ A huge problem encountered during the project was the motor continously moving i
 - Once a **STOP** bit has been activated, the Arduino circuit will prevent writing power to the motor until the **STOP** bit has been cleared.
 
 ```c
-switch (digitalRead(stop_pin)) {
-    case LOW:
-        {
-            digitalWrite(motor_direction_one, HIGH);
-            analogWrite(motor_pin, PWM);
+if (digitalRead(stop_pin) == LOW) {
+    analogWrite(motor_pin, 0);
+    digitalWrite(motor_direction_one, LOW);
 
-            break;
-        }
-
-    case HIGH:
-        {
-            digitalWrite(motor_direction_one, LOW);
-            analogWrite(motor_pin, 0);
-
-            break;
-        }
+    return;
 }
+
+digitalWrite(motor_direction_one, HIGH);
+digitalWrite(motor_direction_two, LOW);
+analogWrite(motor_pin, PWM);
 ```
