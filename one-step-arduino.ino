@@ -95,29 +95,17 @@ void loop() {
     int PWM = calculate_number_from_binary_bits(bits);
 
     // Logic:
-    switch (digitalRead(stop_pin)) {
-        case LOW:
-            {
-                digitalWrite(motor_direction_one, HIGH);
-                analogWrite(motor_pin, PWM);
+    if (digitalRead(stop_pin) == LOW) {
+        analogWrite(motor_pin, 0);
+        digitalWrite(motor_direction_one, LOW);
 
-                break;
-            }
-
-        case HIGH:
-            {
-              digitalWrite(motor_direction_one, LOW);
-              analogWrite(motor_pin, 0);
-
-              break;
-            }
+        return;
     }
 
+    digitalWrite(motor_direction_one, HIGH);
     digitalWrite(motor_direction_two, LOW);
-
-    Serial.print(" -> Decimal: ");
-    Serial.println(PWM);
-
+    analogWrite(motor_pin, PWM);
+    
     // Logic:
     delay(500);
 }
