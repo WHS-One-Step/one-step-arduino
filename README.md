@@ -3,6 +3,7 @@ The official source code repository connecting binary signals from a raspberry p
 
 ## Frameworks
 In this repository, **Arduino** is considered the framework and is used to connect to an Arduino circuit and upload code. In the scope of one-step, Arduino is a major framework that provides control of a motor controller, permitting functionality of extending a device.
+- **The language used in this repository is a C-like language provided by Arduino, allowing for low level access to such devices.**
 
 ## Installation
 To install this project, simply create a arduino sketch and paste the one-step-arduino.ino code. Subsequently, press the upload button once your arduino unit is connected to your computer, and ensure that the pin mappings correspond to the constants in the code.
